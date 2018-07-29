@@ -1,0 +1,1465 @@
+#include <time.h> //Lis‰t‰‰n kirjasto "time.h"
+#include <stdio.h> //Lis‰t‰‰n kirjasto "stdio.h"
+#include <stdlib.h> //Lis‰t‰‰n kirjasto "stdlib.h"
+
+//Esitell‰‰n funktiot
+int kysymys1 (int);
+int kysymys2 (int);
+int kysymys3 (int);
+int kysymys4 (int);
+int kysymys5 (int);
+int loppu (int);
+char oljfifty (char[],char[],char[],char[],char[],char,char); //Fiftyfifty oljenkorsi funktio
+char oljyleiso (char[],char[],char[],char[],char[],char,char);//Yleisˆ oljenkorsi funktio
+
+int yleiso = 0; //Muuttuja jolla lukitaan oljenkorret pois
+int fiftyfifty = 0; //Muuttuja jolla lukitaan oljenkorret pois
+int saldo; //Muuttuja jolla seurataan saldoa
+
+int main() //P‰‰ohjelma
+{
+    char jatkaa; //char muuttuja jatko valinnalle
+    int kysnro = 0; //Alustetaan kysymys numero
+    int kysval = 0; //Alustetaan vastaus muuttuja
+    srand(time(NULL)); //Alustetaan satunnaisluku
+
+    //Tulostetaan ohjeet
+    printf("**********************************************************\n\t\t\tTIETOVISA");
+    printf("\n**********************************************************\n");
+    printf("\nTervetuloa tietovisaan, jokainen kysymys kartuttaa voittopottia 100e edesta.\n");
+    printf("Sinulla on kaytettavissasi kaksi oljenkortta, voit pyytaa oljenkorret valitsemalla X-kirjaimen\n");
+    printf("Voit lopettaa pelin E-kirjaimella jolloin voitat keratyn rahasumman\n");
+
+
+    do //Kysyt‰‰n ohjelman alussa haluaako k‰ytt‰j‰ pelata
+    {
+    printf("\nHaluatko pelata tietovisaa? (k/e)\n");
+    scanf("%c",&jatkaa);
+
+    if (jatkaa == 'k') //Jos vastataan 'k' niin aloitetaan ohjelma
+    {
+        printf("\nAloitetaan\n");
+        saldo = 0;
+        yleiso = 0;
+        fiftyfifty = 0;
+    }
+
+    if (jatkaa == 'e') //Jos vastataan 'e' niin lopetetaan ohjelma
+    {
+        printf("\nKiitos kaynnista ja tervetuloa uudelleen\n");
+        return 0;
+    }
+
+
+    for (kysnro = 1; kysnro<6; kysnro++ ) //for lauseke kysymyksien ohjaamista varten
+    {
+    printf("\n%d.Kysymys, Arvoltaan ", kysnro);
+    switch (kysnro) //switch case jolla valitaan kysymykset.
+    {
+    case 1: //Ensimm‰inen kysymys
+        printf("100e\n\n");
+        kysval = kysymys1(rand()% (2 + 1 - 1) + 1); //Arvotaan kysymys numero 1 tai 2 ja kutsutaan kysymys1 fuktiota
+        if (kysval == 2) //Jos aliohjelma palauttaa arvon 2 niin for loop lopetataan asettamalla kysnro arvoon 6
+        {
+            kysnro = 6;
+        }
+        if (kysval == 1) //Jos aliohjelma palauttaa arvon 1 niin edet‰‰n seuraavaan kysymykseen ja lis‰t‰‰n saldo
+        {
+            printf("\nNoniin sitten seuraavaan kysymykseen\n");
+            saldo = 100;
+        }
+
+        if (kysval == 0) //Jos asliohjelma palauttaa arvon 0 niin lopetaan for loop ja tulosteaan viesti.
+        {
+            printf("\nValitettavasti se oli sitten siina\n");
+            printf("Voitit 0 euroa\n");
+            printf("Kiitoksia Kaynnista.\n");
+            kysnro = 6;
+        }
+        break;
+
+    case 2: //Toinen kysymys
+        printf("200e\n\n");
+        kysval = kysymys2(rand()% (2 + 1 - 1) + 1); //Arvotaan kysymys numero 1 tai 2 ja kutsutaan kysymys2 fuktiota
+        if (kysval == 2) //Jos aliohjelma palauttaa arvon 2 niin for loop lopetataan asettamalla kysnro arvoon 6
+        {
+            kysnro = 6;
+        }
+        if (kysval == 1) //Jos aliohjelma palauttaa arvon 1 niin edet‰‰n seuraavaan kysymykseen ja lis‰t‰‰n saldo
+        {
+            printf("\nNoniin sitten seuraavaan kysymykseen\nOlet voittanut 200e joita sinulta ei oteta pois.\n");
+            saldo = 200;
+        }
+
+        if (kysval == 0) //Jos asliohjelma palauttaa arvon 0 niin lopetaan for loop ja tulosteaan viesti.
+        {
+            printf("\nValitettavasti se oli sitten siina\n");
+            printf("Voitit 0 euroa\n");
+            printf("Kiitoksia Kaynnista.\n");
+            kysnro = 6;
+        }
+        break;
+
+    case 3: //Kolmas kysymys
+        printf("300e\n\n");
+        kysval = kysymys3(rand()% (2 + 1 - 1) + 1); //Arvotaan kysymys numero 1 tai 2 ja kutsutaan kysymys3 fuktiota
+        if (kysval == 2) //Jos aliohjelma palauttaa arvon 2 niin for loop lopetataan asettamalla kysnro arvoon 6
+        {
+            kysnro = 6;
+        }
+        if (kysval == 1) //Jos aliohjelma palauttaa arvon 1 niin edet‰‰n seuraavaan kysymykseen ja lis‰t‰‰n saldo
+        {
+            printf("\nNoniin sitten seuraavaan kysymykseen\n");
+            saldo = 300;
+        }
+
+        if (kysval == 0) //Jos asliohjelma palauttaa arvon 0 niin lopetaan for loop ja tulosteaan viesti.
+        {
+            printf("\nValitettavasti se oli sitten siina\n");
+            printf("Voitit 200 euroa\n");
+            printf("Kiitoksia Kaynnista.\n");
+            kysnro = 6;
+        }
+        break;
+
+    case 4: //Nelj‰s kysymys
+        printf("400e\n\n");
+        kysval = kysymys4(rand()% (2 + 1 - 1) + 1); //Arvotaan kysymys numero 1 tai 2 ja kutsutaan kysymys4 fuktiota
+        if (kysval == 2) //Jos aliohjelma palauttaa arvon 2 niin for loop lopetataan asettamalla kysnro arvoon 6
+        {
+            kysnro = 6;
+        }
+        if (kysval == 1) //Jos aliohjelma palauttaa arvon 1 niin edet‰‰n seuraavaan kysymykseen ja lis‰t‰‰n saldo
+        {
+            printf("\nNoniin sitten viimeiseen kysymykseen\n");
+            saldo = 300;
+        }
+
+        if (kysval == 0) //Jos asliohjelma palauttaa arvon 0 niin lopetaan for loop ja tulosteaan viesti.
+        {
+            printf("\nValitettavasti se oli sitten siina\n");
+            printf("Voitit 200 euroa\n");
+            printf("Kiitoksia Kaynnista.\n");
+            kysnro = 6;
+        }
+        break;
+
+    case 5: //Viides kysymys
+        printf("500e\n\n");
+        kysval = kysymys5(rand()% (2 + 1 - 1) + 1); //Arvotaan kysymys numero 1 tai 2 ja kutsutaan kysymys5 fuktiota
+        if (kysval == 2) //Jos aliohjelma palauttaa arvon 2 niin for loop lopetataan asettamalla kysnro arvoon 6
+        {
+            kysnro = 6;
+        }
+        if (kysval == 1) //Jos aliohjelma palauttaa arvon 1 niin edet‰‰n seuraavaan kysymykseen ja lis‰t‰‰n saldo
+        {
+            printf("\nOlet voittanut kilpailun, onnea!\n");
+            saldo = 500;
+            printf("\nVoitit %d euroa\n",saldo);
+
+        }
+
+        if (kysval == 0) //Jos asliohjelma palauttaa arvon 0 niin lopetaan for loop ja tulosteaan viesti.
+        {
+            printf("\nValitettavasti se oli sitten siina\n");
+            printf("Voitit 200 euroa\n");
+            printf("Kiitoksia Kaynnista.\n");
+            kysnro = 6;
+        }
+        break;
+
+    }
+    }
+
+    printf("\n"); //Tulostetaan rivinvaihto
+    scanf("%c",&jatkaa); //otetaan vastaan 'jatkaa' muuttuja
+}
+while((jatkaa != 'k') && (jatkaa != 'e')); //Mik‰li vastaus on k niin jatketaan uudella pelill‰.
+}
+
+
+
+kysymys1(int kysymys) //Kysymy 1 funktio
+{
+    int vastok = 0; //Luodaan muuttuja ilmaisemaan onko vastaus annettu
+   do
+   {
+    if (kysymys == 1) //Kysymys vaihtoehto 1
+    {
+        char kys[]="Mika maa voitti jaakiekon maailmanmestaruuden vuonna 1995?\n"; //Kysymys muuttuja
+        char vasA[]="Suomi"; //Vastaus muuttuja
+        char vasB[]="Ruotsi";//Vastaus muuttuja
+        char vasC[]="Venaja";//Vastaus muuttuja
+        char vasD[]="Meksiko";//Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='A'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='a'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso=1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+
+    if (kysymys == 2) //Kysymys vaihtoehto 2
+    {
+        char kys[]="Mika oli vuosi kun matkustajalautta Ms Estonia upposi?\n"; //Kysymys muuttuja
+        char vasA[]="1995";//Vastaus muuttuja
+        char vasB[]="1993";//Vastaus muuttuja
+        char vasC[]="1994";//Vastaus muuttuja
+        char vasD[]="1990";//Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='C'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='c'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso = 1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+}while (vastok == 0); //Tarkistetaan onko annettu hyv‰ksytt‰v‰ vastaus
+}
+
+kysymys2(int kysymys) //Kysymys 2 funktio
+{
+    int vastok = 0; //Luodaan muuttuja ilmaisemaan onko vastaus annettu
+   do
+   {
+    if (kysymys == 1) //Kysymys vaihtoehto 1
+    {
+        char kys[]="mika vuosi taisteltiin suomen ns.veljessodan tampereen taistelu?\n"; //Kysymys muuttuja
+        char vasA[]="1919"; //Vastaus muuttuja
+        char vasB[]="1819"; //Vastaus muuttuja
+        char vasC[]="1918"; //Vastaus muuttuja
+        char vasD[]="1939"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='C'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='c'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso=1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+
+    if (kysymys == 2)
+    {
+        char kys[]="Milloin taisteltiin talvisota?\n"; //Kysymys muuttuja
+        char vasA[]="1950"; //Vastaus muuttuja
+        char vasB[]="1939"; //Vastaus muuttuja
+        char vasC[]="1920"; //Vastaus muuttuja
+        char vasD[]="1918"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='B'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='b'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso = 1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+}while (vastok == 0); //Tarkistetaan onko annettu hyv‰ksytt‰v‰ vastaus
+}
+
+kysymys3(int kysymys) //Kysymys 3 funktio
+{
+    int vastok = 0; //Luodaan muuttuja ilmaisemaan onko vastaus annettu
+   do
+   {
+    if (kysymys == 1) //Kysymys vaihtoehto 1
+    {
+        char kys[]="Mika on hapen kemiallinen merkki?\n"; //Kysymys muuttuja
+        char vasA[]="K"; //Vastaus muuttuja
+        char vasB[]="N"; //Vastaus muuttuja
+        char vasC[]="H"; //Vastaus muuttuja
+        char vasD[]="O"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='D'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='d'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+         if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso=1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+
+    if (kysymys == 2) //Kysymys vaihtoehto 2
+    {
+        char kys[]="Mika on sahkovirran yksikko SI-jarjestelmassa?\n"; //Kysymys muuttuja
+        char vasA[]="Ampeeri"; //Vastaus muuttuja
+        char vasB[]="Voltti"; //Vastaus muuttuja
+        char vasC[]="Ohmi"; //Vastaus muuttuja
+        char vasD[]="Hertsi"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='A'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='a'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso = 1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+}while (vastok == 0); //Tarkistetaan onko annettu hyv‰ksytt‰v‰ vastaus
+}
+
+kysymys4(int kysymys) //Kysymys 4 funktio
+{
+    int vastok = 0; //Luodaan muuttuja ilmaisemaan onko vastaus annettu
+   do
+   {
+    if (kysymys == 1) //Kysymys vaihtoehto 1
+    {
+        char kys[]="Kuinka paljon 33 jalkaa on metreina?\n"; //Kysymys muuttuja
+        char vasA[]="10"; //Vastaus muuttuja
+        char vasB[]="8"; //Vastaus muuttuja
+        char vasC[]="13"; //Vastaus muuttuja
+        char vasD[]="20"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='A'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='a'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso=1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+    if (kysymys == 2) //Kysymys vaihtoehto 2
+    {
+        char kys[]="Mika oli Commondore 64:sen suoritin nopeus?\n"; //Kysymys muuttuja
+        char vasA[]="3Mhz"; //Vastaus muuttuja
+        char vasB[]="2.5Mhz"; //Vastaus muuttuja
+        char vasC[]="2Mhz"; //Vastaus muuttuja
+        char vasD[]="1Mhz"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='D'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='d'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso = 1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+}while (vastok == 0); //Tarkistetaan onko annettu hyv‰ksytt‰v‰ vastaus
+}
+
+kysymys5(int kysymys) //Kysymys 5 funktio
+{
+    int vastok = 0; //Luodaan muuttuja ilmaisemaan onko vastaus annettu
+   do
+   {
+    if (kysymys == 1) //Kysymys vaihtoehto 1
+    {
+        char kys[]="Milla nimella tunnettiin T-34 panssarivaunu suomessa?\n"; //Kysymys muuttuja
+        char vasA[]="Taavi"; //Vastaus muuttuja
+        char vasB[]="Kuovi"; //Vastaus muuttuja
+        char vasC[]="Sotka"; //Vastaus muuttuja
+        char vasD[]="Sorsa"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='C'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='c'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso=1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+
+    if (kysymys == 2) //Kysymys vaihtoehto 2
+    {
+        char kys[]="Mika on hapen osuus prosentteina maan ilmakehassa merenpinnan tasolla?\n"; //Kysymys muuttuja
+        char vasA[]="25"; //Vastaus muuttuja
+        char vasB[]="21"; //Vastaus muuttuja
+        char vasC[]="33"; //Vastaus muuttuja
+        char vasD[]="15"; //Vastaus muuttuja
+        char vastaus; //Luodaan vastaus muuttuja syˆtetylle vastaukselle
+        char oikvast1 ='B'; //Oikea vastaus vaihtoehto
+        char oikvast2 ='b'; //Oikea vastaus vaihtoehto
+        printf("%s",kys); //Tulostetaan kysymys
+        printf("A.%s\t\tB.%s\nC.%s\t\tD.%s \n",vasA,vasB,vasC,vasD); //Tulostetaan vastausvaihtoehdot
+        printf("\n"); //Tulostetaan rivin vaihto
+        scanf(" %c",&vastaus); //oteaan vastaus vastaan
+
+        if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkisteaan onko vastaus oikein
+        {
+            printf("\nOikein\n"); //Tulosteaan viesti
+            vastok = 1; //tallennetaan vastok arvoksi 1
+            return 1; //Palautetaan p‰‰ ohjelmaan arvo 1
+        }
+
+        if ((vastaus == 'E') || (vastaus == 'e')) //Jos syˆtet‰‰n vastaus 'e'
+        {
+            loppu(saldo); //Kutsutaan aliohjelma 'loppu' ja syˆtet‰‰n sinne saldo
+            return 2; //Palautetaan p‰‰ohjelmaan arvo '2'
+        }
+
+
+        if ((vastaus == 'X') || (vastaus == 'x')) //Jos syˆtet‰‰n vastaus 'x'
+        {
+           char valinta; //Luodaan muuttuja valinta
+           printf("Olet valinnut oljenkorret.\n"); //Tulosteaan viesti k‰ytt‰j‰lle
+           if (fiftyfifty == 0) //tarkistaan onko fiftyfifty k‰ytetty
+           {
+           printf("Vaihtoehto A poistaa kaksi ei oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytetty
+           {
+           printf("Vaihtoehto B kysyy katsojilta oikeaa vastausta\n"); //Tulostetaan viesti
+           }
+
+           printf("Vaihtoehto C palaa takaisin.\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+           scanf(" %c",&valinta); //Luetaan k‰ytt‰j‰n valinta
+
+           if ((valinta == 'A') || (valinta == 'a')) //Jos valinta on 'A'
+           {
+                if (fiftyfifty == 0) //Tarkistetaan onko fiftyfifty k‰ytt‰m‰tt‰
+                {
+                fiftyfifty = 1; //Merkit‰‰n fiftyfifty k‰ytetyksi
+                printf("valitsit fiftyfifty\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+                vastaus = oljfifty(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan fiftyfifty aliohjelmaa
+                if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                    {
+                    printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikeia vastaus
+                    vastok = 1;
+                    return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                    }
+                }
+                else
+                {
+                    printf("Olet kayttanyt fiftyfiftyn\n\n"); //tulosteaan viesti jos fiftyfifty on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'B')||(valinta == 'b')) //Jos valinta on 'B'
+           {
+               if (yleiso == 0) //Tarkistetaan onko yleisˆ k‰ytt‰m‰tt‰
+               {
+                yleiso = 1; //Merkit‰‰n yleisˆ k‰ytetyksi
+               printf("valitsit yleison\n"); //Tulostetaan viesti k‰ytt‰j‰lle
+               vastaus = oljyleiso(kys,vasA,vasB,vasC,vasD,oikvast1,oikvast2); //Kutsutaan yleisˆ aliohjelmaa
+               if ((vastaus == oikvast1)||(vastaus == oikvast2)) //tarkistetaan onko vastus oikein
+                    {
+                    printf("\nOikein\n");
+                    vastok = 1;
+                    return 1; //Palautetaan p‰‰ ohjelmaan arvo '1'
+                    }
+
+                else //jos vastaus ei ole oikein
+                {
+                printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulostetaan viesti ja oikea vastaus
+                vastok = 1;
+                return 0; //Palautetaan p‰‰ohjelmaan arvo '0'
+                }
+                }
+
+                else
+                {
+                    printf("Olet kayttanyt yleison\n\n"); //tulosteaan viesti jos yleisˆ on k‰ytetty
+                }
+           }
+
+           if ((valinta == 'C')||(valinta == 'c')) //Jos valinta on C niin palataan takaisin kysymykseen
+           {
+               printf("\nPalataan takaisin kysymykseen\n\n"); //Tulostetaan viesti
+           }
+        }
+
+        else //Jos vastaus ei ole oikein
+        {
+            printf("Vaarin meni, oikeavastaus olisi ollut %c",oikvast1); //Tulosttetaan vastaus ja viesti
+            vastok = 1; //Kirjataan vastatuksi
+            return 0; //palautetaan p‰‰ohjelmaan arvo 0:lla
+        }
+    }
+}while (vastok == 0); //Tarkistetaan onko annettu hyv‰ksytt‰v‰ vastaus
+}
+
+
+char oljfifty(char kysymys[],char A[],char B[],char C[],char D[],char oikea1,char oikea2) //fiftyfifty oljenkorsi funktio
+{
+    char vast; //Luodaan muuttuja 'vast' vastausta varten
+    int vaihtoehto; //luodaan muuttuja vaihtoehto
+    printf("ok\n\n"); //Tulostetaan viesti
+    printf("%s",kysymys); //Tulostetaan kysymys
+
+    if ((oikea1 == 'A')||(oikea2 == 'a')) //Jos oikea vastaus on vaihtoehto 'a'
+        {
+        vaihtoehto = rand()% (3 + 1 - 1) + 1; //Arvotaan mik‰ kysymys tulee oikean vastauksen pariksi
+        if (vaihtoehto == 1) //Jos arvottu tulos on 1
+            printf("A.%s\t\tB.%s\n",A,B); //Tulosteaan vaihtoehdoiksi 'a' ja 'b'
+
+        if (vaihtoehto == 2) //Jos arvottu tulos on 2
+            printf("A.%s\t\tC.%s\n",A,C); //Tulosteaan vaihtoehdoiksi 'a' ja 'c'
+
+        if (vaihtoehto == 3) //Jos arvottu tulos on 3
+            printf("A.%s\t\tD.%s\n\n",A,D); //Tulosteaan vaihtoehdoiksi 'a' ja 'd'
+        }
+
+    if ((oikea1 == 'B')||(oikea2 == 'b')) //Jos oikea vastaus on vaihtoehto 'b'
+        {
+        vaihtoehto = rand()% (3 + 1 - 1) + 1; //Arvotaan mik‰ kysymys tulee oikean vastauksen pariksi
+        if (vaihtoehto == 1) //Jos arvottu tulos on 1
+            printf("A.%s\t\tB.%s\n",A,B); //Tulosteaan vaihtoehdoiksi 'a' ja 'b'
+
+        if (vaihtoehto == 2) //Jos arvottu tulos on 2
+            printf("B.%s\t\tC.%s\n",B,C); //Tulosteaan vaihtoehdoiksi 'b' ja 'c'
+
+        if (vaihtoehto == 3) //Jos arvottu tulos on 3
+            printf("B.%s\t\tD.%s\n\n",B,D); //Tulosteaan vaihtoehdoiksi 'b' ja 'd'
+        }
+
+    if ((oikea1 == 'C')||(oikea2 == 'c')) //Jos oikea vastaus on vaihtoehto 'c'
+        {
+        vaihtoehto = rand()% (3 + 1 - 1) + 1; //Arvotaan mik‰ kysymys tulee oikean vastauksen pariksi
+        if (vaihtoehto == 1) //Jos arvottu tulos on 1
+            printf("A.%s\t\tC.%s\n",A,C); //Tulosteaan vaihtoehdoiksi 'a' ja 'c'
+
+        if (vaihtoehto == 2) //Jos arvottu tulos on 2
+            printf("B.%s\t\tC.%s\n",B,C); //Tulosteaan vaihtoehdoiksi 'b' ja 'c'
+
+        if (vaihtoehto == 3) //Jos arvottu tulos on 3
+            printf("C.%s\t\tD.%s\n\n",C,D); //Tulosteaan vaihtoehdoiksi 'c' ja 'd'
+        }
+
+    if ((oikea1 == 'D')||(oikea2 == 'd')) //Jos oikea vastaus on vaihtoehto 'd'
+        {
+        vaihtoehto = rand()% (3 + 1 - 1) + 1; //Arvotaan mik‰ kysymys tulee oikean vastauksen pariksi
+        if (vaihtoehto == 1) //Jos arvottu tulos on 1
+            printf("A.%s\t\tD.%s\n",A,D); //Tulosteaan vaihtoehdoiksi 'a' ja 'd'
+
+        if (vaihtoehto == 2) //Jos arvottu tulos on 2
+            printf("B.%s\t\tD.%s\n",B,D); //Tulosteaan vaihtoehdoiksi 'b' ja 'd'
+
+        if (vaihtoehto == 3) //Jos arvottu tulos on 3
+            printf("C.%s\t\tD.%s\n\n",C,D); //Tulosteaan vaihtoehdoiksi 'c' ja 'd'
+        }
+    scanf(" %c",&vast); //Otetaan vastaus vastaan
+
+return vast; // Palautetaan annettu vastaus p‰‰ohjelmaan
+}
+
+char oljyleiso(char kysymys[],char A[],char B[],char C[],char D[],char oikea1, char oikea2) //yleisˆ oljenkorsi funktio
+{
+    char vast; //Luodaan muuttuja 'vast'
+    int prosright = rand()% (85 + 1 - 50) + 50; //Arvotaan oikena vastauksen prosentit v‰lilt‰ 50%-85%
+    int proswrong = 100-prosright; //V‰ennete‰‰n oikean vastauksen prosentit sadasta
+    int prosvaara1 = (proswrong/7)*3; //v‰‰r‰n vastauksen prosentit <50
+    int prosvaara2 = (proswrong/7)*2; //v‰‰r‰n vastauksen prosentit <50
+    int prosvaara3 = ((proswrong-6)/7)*2; //v‰‰r‰n vastauksen prosentit <50
+    printf("ok\n\n"); //Tulostetaan viesti
+    printf("%s",kysymys); // tulostetaan kysymys
+
+    if ((oikea1 == 'A')||(oikea2 == 'a')) //Jos 'a' on oikea vastaus
+        {
+            printf("A.%s %d%c\t\tB.%s %d%c\nC.%s %d%c\t\tD.%s %d%c\n",A,prosright,37,B,prosvaara1,37,C,prosvaara2,37,D,prosvaara3,37); //Tulostetaan vastaukset ja prosentit
+        }
+
+    if ((oikea1 == 'B')||(oikea2 == 'b')) //Jos 'b' on oikea vastaus
+        {
+            printf("A.%s %d%c\t\tB.%s %d%c\nC.%s %d%c\t\tD.%s %d%c\n",A,prosvaara1,37,B,prosright,37,C,prosvaara2,37,D,prosvaara3,37); //Tulostetaan vastaukset ja prosentit
+        }
+
+    if ((oikea1 == 'C')||(oikea2 == 'c')) //Jos 'c' on oikea vastaus
+        {
+            printf("A.%s %d%c\t\tB.%s %d%c\nC.%s %d%c\t\tD.%s %d%c\n",A,prosvaara2,37,B,prosvaara1,37,C,prosright,37,D,prosvaara3,37); //Tulostetaan vastaukset ja prosentit
+        }
+
+    if ((oikea1 == 'D')||(oikea2 == 'd')) //Jos 'd' on oikea vastaus
+        {
+            printf("A.%s %d%c\t\tB.%s %d%c\nC.%s %d%c\t\tD.%s %d%c\n",A,prosvaara3,37,B,prosvaara1,37,C,prosvaara2,37,D,prosright,37); //Tulostetaan vastaukset ja prosentit
+        }
+    scanf(" %c",&vast); //Otetaan vastaus vastaan
+
+
+return vast; // Palautetaan annettu vastaus p‰‰ohjelmaan
+
+}
+
+int loppu(int sal) //Funktio loppu
+{
+    printf("Paatit lopetta, Voitit %d euroa\n",sal); //Tulosteaan viesti ja loppusaldo
+}
